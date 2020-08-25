@@ -74,7 +74,7 @@ echo summary:
 
 echo "database host: $DBHOST, database user: $DBUSER, database name: $POSTGRESDBNAME, worker threads: $PGTHREADS, simulated clients: $PGCLIENTS, transactions per client: $PGTRANS"
 
-read -p "Are you sure you want to continue? <y/N> " prompt
+read -p "Continue with benchmark?  <y/N> " prompt
 if [[ $prompt =~ [yY](es)* ]]
 then
 	pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
