@@ -2,7 +2,7 @@
 #@author: Benjamin Tokgoez
 #implemented for usage with remote postgresdbs
 
-echo "Welcome to the postgres auto-config"
+echo "Welcome to the pgbench auto-config"
 
 echo "Please provide your database host (default localhost)"
 
