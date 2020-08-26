@@ -92,7 +92,7 @@ then
 	echo "running command: pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
  ... "
 	
-	echo "Benchmark-test time: $(date)" >> ./pgbench_results
+	echo "Benchmark-test time: $(date) against Host: $DBHOST" >> ./pgbench_results
 	start=$SECONDS
 	pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
 	end=$SECONDS
