@@ -48,7 +48,7 @@ then
 else
 	export PGTHREADS=$workerthreads
 fi
-echo "Please provide a number of simulated clients (default 1)"
+echo "Please provide a number of simulated clients (Should be a multitude of threads. Default 1)"
 
 read pgclients
 
@@ -74,10 +74,30 @@ echo summary:
 
 echo "database host: $DBHOST, database user: $DBUSER, database name: $POSTGRESDBNAME, worker threads: $PGTHREADS, simulated clients: $PGCLIENTS, transactions per client: $PGTRANS"
 
+read -p "Did you already initialized pgbench (pgbench -i)?  <y/N> " prompt
+if [[ $prompt =~ [yY](es)* ]]
+then
+	echo ""
+else 
+	echo "Initializing pgbench with command: pgbench -i -h $DBHOST -U $DBUSER $POSTGRESDBNAME"
+	pgbench -i -h $DBHOST -U $DBUSER $POSTGRESDBNAME 
+	
+fi
+
+#TODO set vars as "global" env vars.
+
 read -p "Continue with benchmark?  <y/N> " prompt
 if [[ $prompt =~ [yY](es)* ]]
 then
+	echo "running command: pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
+ ... "
+	
+	echo "Benchmark-test time: $(date)" >> ./pgbench_results
+	start=$SECONDS
 	pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
+	end=$SECONDS
+	let diff=end-start
+	echo "duration of exceution: $diff seconds"
 else 
 	echo "cancel benchmark..."
 fi
