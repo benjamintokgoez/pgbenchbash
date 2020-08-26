@@ -97,7 +97,7 @@ then
 	pgbench -h $DBHOST -j$PGTHREADS -r -Mextended -n -c$PGCLIENTS -t$PGTRANS -U $DBUSER $POSTGRESDBNAME >> ./pgbench_results
 	end=$SECONDS
 	let diff=end-start
-	echo "duration of execution: $diff seconds"
+	echo "Output concatenated to file ./pgbench_results"
 	echo "duration of execution: $diff seconds" >> ./pgbench_results
 else 
 	echo "cancel benchmark..."
